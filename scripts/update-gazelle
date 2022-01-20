@@ -14,3 +14,5 @@ bazel run //:gazelle-update-repos
 bazel run --run_under "cd $PWD &&" @com_github_bazelbuild_buildtools//buildozer -- \
   "set deps $(bazel query 'kind("haskell_library", //lib/...)')" \
   //docs:docs
+
+bazel run @stackage-unpinned//:pin
