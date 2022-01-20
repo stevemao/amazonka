@@ -37,9 +37,10 @@ run --remote_download_outputs=all
 build:linux --remote_instance_name=amazonka-linux
 build:darwin --remote_instance_name=amazonka-darwin
 
-build --remote_cache=grpcs://remote.buildbuddy.io
+build --noremote_upload_local_results
+build --remote_cache=grpcs://cloud.buildbuddy.io
+build --remote_download_toplevel
 build --remote_timeout=3600s
-build --remote_upload_local_results=false
 build --remote_retries=10
 build --http_timeout_scaling=2.0
 
@@ -47,7 +48,7 @@ build --http_timeout_scaling=2.0
 # Build Telemetry
 #
 
-build:remote --bes_backend=grpcs://remote.buildbuddy.io
+build:remote --bes_backend=grpcs://cloud.buildbuddy.io
 build:remote --bes_results_url=https://app.buildbuddy.io/invocation/
 build:remote --bes_timeout=900s
 build:remote --keep_backend_build_event_connections_alive=false
@@ -57,12 +58,12 @@ build:remote --keep_backend_build_event_connections_alive=false
 #
 
 common:ci --color=no
+common:ci --config=remote
 
 build:ci --disk_cache=
 build:ci --loading_phase_threads=1
 build:ci --remote_upload_local_results=true
 build:ci --experimental_ui_max_stdouterr_bytes=-1
-build:ci --remote_download_minimal
 
 test:ci --test_output=errors
 test:ci --test_verbose_timeout_warnings
