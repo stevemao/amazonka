@@ -44,7 +44,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteConnection' smart constructor.
 data DeleteConnection = DeleteConnection'
-  { connectionId :: Prelude.Text
+  { prefix :: Prelude.ByteString,
+    connectionId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -61,8 +62,8 @@ newDeleteConnection ::
   -- | 'connectionId'
   Prelude.Text ->
   DeleteConnection
-newDeleteConnection pConnectionId_ =
-  DeleteConnection' {connectionId = pConnectionId_}
+newDeleteConnection pPrefix_ pConnectionId_ =
+  DeleteConnection' {prefix = pPrefix_, connectionId = pConnectionId_}
 
 -- | Undocumented member.
 deleteConnection_connectionId :: Lens.Lens' DeleteConnection Prelude.Text
@@ -78,10 +79,12 @@ instance Core.AWSRequest DeleteConnection where
 
 instance Prelude.Hashable DeleteConnection where
   hashWithSalt _salt DeleteConnection' {..} =
-    _salt `Prelude.hashWithSalt` connectionId
+    _salt `Prelude.hashWithSalt` prefix
+      `Prelude.hashWithSalt` connectionId
 
 instance Prelude.NFData DeleteConnection where
-  rnf DeleteConnection' {..} = Prelude.rnf connectionId
+  rnf DeleteConnection' {..} = Prelude.rnf prefix
+      `Prelude.seq` Prelude.rnf data'
 
 instance Core.ToHeaders DeleteConnection where
   toHeaders =
@@ -97,7 +100,7 @@ instance Core.ToHeaders DeleteConnection where
 instance Core.ToPath DeleteConnection where
   toPath DeleteConnection' {..} =
     Prelude.mconcat
-      ["/@connections/", Core.toBS connectionId]
+      [prefix, "/@connections/", Core.toBS connectionId]
 
 instance Core.ToQuery DeleteConnection where
   toQuery = Prelude.const Prelude.mempty
