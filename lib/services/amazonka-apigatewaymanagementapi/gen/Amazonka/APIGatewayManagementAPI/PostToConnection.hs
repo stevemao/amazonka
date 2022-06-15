@@ -45,7 +45,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPostToConnection' smart constructor.
 data PostToConnection = PostToConnection'
-  { -- | The identifier of the connection that a specific client is using.
+  { 
+    prefix :: Prelude.ByteString,
+    -- | The identifier of the connection that a specific client is using.
     connectionId :: Prelude.Text,
     -- | The data to be sent to the client specified by its connection id.
     data' :: Prelude.ByteString
@@ -64,14 +66,16 @@ data PostToConnection = PostToConnection'
 --
 -- 'data'', 'postToConnection_data' - The data to be sent to the client specified by its connection id.
 newPostToConnection ::
+  Prelude.ByteString ->
   -- | 'connectionId'
   Prelude.Text ->
   -- | 'data''
   Prelude.ByteString ->
   PostToConnection
-newPostToConnection pConnectionId_ pData_ =
+newPostToConnection pPrefix_ pConnectionId_ pData_ =
   PostToConnection'
-    { connectionId = pConnectionId_,
+    { prefix = pPrefix_
+      connectionId = pConnectionId_,
       data' = pData_
     }
 
@@ -93,12 +97,14 @@ instance Core.AWSRequest PostToConnection where
 
 instance Prelude.Hashable PostToConnection where
   hashWithSalt _salt PostToConnection' {..} =
-    _salt `Prelude.hashWithSalt` connectionId
+    _salt `Prelude.hashWithSalt` prefix
+      `Prelude.hashWithSalt` connectionId
       `Prelude.hashWithSalt` data'
 
 instance Prelude.NFData PostToConnection where
   rnf PostToConnection' {..} =
-    Prelude.rnf connectionId
+    Prelude.rnf prefix
+      `Prelude.seq` Prelude.rnf connectionId
       `Prelude.seq` Prelude.rnf data'
 
 instance Core.ToBody PostToConnection where
@@ -118,7 +124,7 @@ instance Core.ToHeaders PostToConnection where
 instance Core.ToPath PostToConnection where
   toPath PostToConnection' {..} =
     Prelude.mconcat
-      ["/@connections/", Core.toBS connectionId]
+      [prefix, "/@connections/", Core.toBS connectionId]
 
 instance Core.ToQuery PostToConnection where
   toQuery = Prelude.const Prelude.mempty
